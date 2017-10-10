@@ -20,23 +20,24 @@ fbank16k_config_opts="--window-type=hamming --use-energy=false --sample-frequenc
 
 function Usage {
 	cat<<END
-	./decoding.sh <root-dir> <graph-dir> <nnet_dir> file_id
+	./decoding.sh <root-dir> <graph-dir> <nnet_dir> process_id file_id
 END
 }
 
-if [ $# -ne 4 ]; then
+if [ $# -ne 5 ]; then
   Usage && exit 1
 fi
 
 sysdir=$1
 graphdir=$2
 fbank_nnet_dir=$3
-file_id=$4
+process_id=$4
+file_id=$5
 
 # init paths
 root_dir=$(cd "$(dirname "$lvcsrRootDir/../../")" && pwd)/$(basename "$lvcsrRootDir/../../") # abs path
 data_dir=$root_dir/data
-working_dir=$data_dir/$file_id
+working_dir=$data_dir/$process_id/$file_id
 resample_dir=$working_dir/resample
 resample_file=$resample_dir/$file_id.wav
 diarize_dir=$working_dir/diarization
